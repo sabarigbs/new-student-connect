@@ -14,6 +14,11 @@ var facultyController = {
 
     },
 
+    // This function updates mark of a subject depending on his remarks and proof
+    updateMarks : function(req,res,next){
+
+    },
+
     // This function will insert attendance details for a particular lecture 
     insertSubjectwiseAttendance : function(req,res,next){
         db.query('',[],function(err,data,fields){
