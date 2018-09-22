@@ -68,6 +68,11 @@ var studentController = {
 
     },
 
+    // This function deletes the applied onduty of student
+    deleteOnDutyRequest : function(req,res,next){
+
+    }
+
 
 };
 
