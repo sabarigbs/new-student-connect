@@ -40,8 +40,8 @@ var facultyController = {
         });
     },
 
-    // This function allows the faculty to view their class students onduty requests
-    viewClasswiseOnDuty : function(req,res,next){
+    // This function allows the faculty to view their class students onduty requests and hod to view list of requests to be approved
+    viewOnDutyRequests : function(req,res,next){
         db.query('',[],function(err,data,fields){
 
         });
