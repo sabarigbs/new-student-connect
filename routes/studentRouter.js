@@ -11,5 +11,5 @@ router.get('/:studentId/attendance', studentController.getAttendance);
 
 // Routes that deal with onduty
 router.get('/:studentId/onduty', studentController.viewAppliedOnDuty);
-
+router.delete('/:studentId/onduty/:ondutyId',studentController.deleteOnDutyRequest);
 module.exports = router;
