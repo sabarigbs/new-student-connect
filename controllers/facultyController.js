@@ -61,9 +61,6 @@ var facultyController = {
         });
     },
 
-    dummyFunction : function(req,res,next){
-        
-    }
-};
+   };
 
 module.exports = facultyController;
