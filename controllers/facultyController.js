@@ -97,6 +97,11 @@ var facultyController = {
 
         });
     },
+<<<<<<< HEAD
 };
+=======
+
+   };
+>>>>>>> e3c48f9ba089a034e043df54eae37bbf36978044
 
 module.exports = facultyController;
