@@ -10,6 +10,6 @@ router.put('/marks/:markId',studentController.updateRemarks);
 router.get('/:studentId/attendance', studentController.getAttendance);
 
 // Routes that deal with onduty
-router.get('/:studentId/onduty', studentController.getOnDuty);
+router.get('/:studentId/onduty', studentController.viewAppliedOnDuty);
 
 module.exports = router;
