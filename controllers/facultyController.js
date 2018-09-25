@@ -30,6 +30,18 @@ var facultyController = {
 
     },
 
+    // This function inserts the marks of student attending a particular faculty's subject
+    insertMarksBySubject : function(req,res,next){
+        console.log("Hello");
+        var values = [``,]
+        db.query(`INSERT INTO marks(occurrence_id,enrollment_id,teaches_id,marks,remarks) SELECT '18ODD1',enrollment_id,1,45,'' FROM enrollments WHERE student_id = ? AND course_id = ?`,['15CSR174','14GET71'],function(err,data,fields){
+            if(err)
+                console.log(err);
+            console.log(data);
+        });
+
+    },
+
     // This function updates mark of a subject depending on his remarks and proof
     updateMarks : function(req,res,next){
 
@@ -38,7 +50,8 @@ var facultyController = {
                 response.sendErrorResponse(res,statusCodes.INTERNAL_SERVER_ERROR);
             else if(data.affectedRows === 1){
                 message={
-                    'success':true
+                    'success':true,
+                    'message':"Mark has been updated successfully!"
                 };
             }
             else
@@ -56,6 +69,7 @@ var facultyController = {
             else{
                 message = {
                     'success':true,
+                    'message':"Attendance has been recorder successfully!"
                 };
                 response.sendSuccessResponse(res,statusCodes.RECORD_CREATED);
             }
@@ -86,15 +100,37 @@ var facultyController = {
 
     // This function allows a faculty to approve/disprove the onduty request for their class studnets
     approveOnDutyRequest : function(req,res,next){
-        db.query('',[],function(err,data,fields){
-
+        db.query('UPDATE on_duty SET status = "Approved"',function(err,data,fields){
+            if(err)
+                response.sendErrorResponse(res,statusCodes.INTERNAL_SERVER_ERROR);
+            else if(data.affectedRows === 1){
+                message = {
+                    'success':true,
+                    'message':'Onduty request updated successfully!'
+                }
+                response.sendSuccessResponse(res,statusCodes.OK,message);
+            }
+            else{
+                response.sendErrorResponse(res,statusCodes.NOT_FOUND);
+            }
         });
     },
 
     // This function allows HOD to grant onduty request of a student
     grantOnDutyRequest : function(req,res,next){
-        db.query('',[],function(err,data,fields){
-
+        db.query('UPDATE on_duty SET status = "Granted"',function(err,data,fields){
+            if(err)
+                response.sendErrorResponse(res,statusCodes.INTERNAL_SERVER_ERROR);
+            else if(data.affectedRows === 1){
+                message = {
+                    'success':true,
+                    'message':'Onduty request updated successfully!'
+                }
+                response.sendSuccessResponse(res,statusCodes.OK,message);
+            }
+            else{
+                response.sendErrorResponse(res,statusCodes.NOT_FOUND);
+            }
         });
     },
 

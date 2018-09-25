@@ -4,6 +4,7 @@ var facultyController = require('../controllers/facultyController');
 
 
 router.get('/:facultyId/marks/:occurrenceId',facultyController.getMarksBySubject);
+router.post('/:facultyId/marks/:occurrenceId',facultyController.insertMarksBySubject);
 
 
 router.post('/:facultId/attendance',facultyController.insertSubjectwiseAttendance);
