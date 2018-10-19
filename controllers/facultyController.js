@@ -32,8 +32,7 @@ var facultyController = {
 
     // This function inserts the marks of student attending a particular faculty's subject
     insertMarksBySubject : function(req,res,next){
-        console.log("Hello");
-        var values = [``,]
+
         db.query(`INSERT INTO marks(occurrence_id,enrollment_id,teaches_id,marks,remarks) SELECT '18ODD1',enrollment_id,1,45,'' FROM enrollments WHERE student_id = ? AND course_id = ?`,['15CSR174','14GET71'],function(err,data,fields){
             if(err)
                 console.log(err);
@@ -79,8 +78,19 @@ var facultyController = {
     
     // This function will retrieve attendance of students attending a faculty's lecture
     viewSubjectwiseAttendance : function(req,res,next){
-        db.query('',[],function(err,data,fields){
-
+        db.query('SELECT * FROM `student_attendance` WHERE `course_id` = ? and `date`=?',[courseId,date],function(err,data,fields){
+            if(err)
+                response.sendErrorResponse(res,statusCodes.INTERNAL_SERVER_ERROR);
+            else if(data.length !== 0){
+                message={
+                    'success':true,
+                    data
+                };
+                response.sendSuccessResponse(res,statusCodes.OK,message);
+            }
+            else{
+                response.sendErrorResponse(res,statusCodes.NOT_FOUND);
+            }
         });
     },
 

@@ -2,6 +2,7 @@ var db = require('../services/dbConnection');
 var statusCodes = require('../constants/httpStatusCodes');
 var response = require('../services/responseFormat');
 
+
 var studentController = {
     
     // This function fetches mark displaying students CAT wise
@@ -107,7 +108,7 @@ var studentController = {
     // This function updates the applied onduty information of a student
     updateAppliedOnDuty : function(req,res,next){
 
-        db.query(`UPDATE on_duty SET period = ? reason = ? date = ?`,[],function(err,data,fields){
+        db.query(`UPDATE on_duty SET period = ? reason = ? date = ? WHERE onduty_id = ?`,[req.body.period,req.body.reason,req.body.date,req.body.ondutyId],function(err,data,fields){
             if(err)
                 response.sendErrorResponse(res,statusCodes.INTERNAL_SERVER_ERROR);
             else if(data.affectedRows === 1){
