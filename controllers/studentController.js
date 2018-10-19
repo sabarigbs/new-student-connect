@@ -2,7 +2,6 @@ var db = require('../services/dbConnection');
 var statusCodes = require('../constants/httpStatusCodes');
 var response = require('../services/responseFormat');
 
-
 var studentController = {
     
     // This function fetches mark displaying students CAT wise
