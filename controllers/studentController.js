@@ -41,6 +41,7 @@ var studentController = {
                 message={
                     'success':true
                 };
+                response.sendSuccessResponse(res,statusCodes.OK,message);
             }
             else
                 response.sendErrorResponse(res,statusCodes.NOT_FOUND);
@@ -66,12 +67,18 @@ var studentController = {
             
             if(err)
                response.sendErrorResponse(res,statusCodes.INTERNAL_SERVER_ERROR);
-            message={
+           else if(data.length !== 0 && data[0] !== undefined) {
+               message={
                 'success':true,
                 'data':data
-            };
+                };
+                response.sendSuccessResponse(res,statusCodes.OK,message);
+            }
+            else
+            response.sendErrorResponse(res,statusCodes.NOT_FOUND);
+
             
-            res.json(message);
+           
         });
     },
 
