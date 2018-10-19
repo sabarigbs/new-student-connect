@@ -17,6 +17,13 @@ var response = {
             };
         }
 
+        if(statusCode === statusCodes.UNAUTHORIZED){
+            message = {
+                'success' : false,
+                'message' : 'Unauthorized user, Invalid credentials'
+            };
+        }
+
         if(statusCode === statusCodes.NOT_FOUND){
             message = {
                 'success' : false,
