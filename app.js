@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
 var bodyParser = require('body-parser');
+var passport = require('passport');
 
 var authRouter = require('./routes/authRouter');
 var studentRouter = require('./routes/studentRouter');
@@ -21,6 +22,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(cors());
 
 app.use('/', authRouter);
