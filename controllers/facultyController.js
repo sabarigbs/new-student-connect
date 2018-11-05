@@ -61,7 +61,11 @@ var facultyController = {
 
     // This function will insert attendance details for a particular lecture 
     insertSubjectwiseAttendance : function(req,res,next){
-        
+        //var convert = '[["15CSR174","1","14CST71","2018-09-23"],["15CSR169","1","14CST71","2018-09-23"],["15CSR178","1","14CST71","2018-09-23"]]';
+        var convert = req.body.attendance;
+        console.log(convert);
+        var json = JSON.parse(convert);
+        console.log("66",json);
         db.query(`INSERT INTO student_attendance(student_id,period,course_id,date) VALUES ? `,[valArr],function(err,data,fields){
             if(err)
                 response.sendErrorResponse(res,statusCodes.INTERNAL_SERVER_ERROR);
