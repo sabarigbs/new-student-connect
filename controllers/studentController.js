@@ -110,6 +110,10 @@ var studentController = {
         })
     },
 
+    // This function adds a new record in database when a student applies for onduty
+    applyOnDuty : function(req,res,next){
+
+    },
 
     // This function updates the applied onduty information of a student
     updateAppliedOnDuty : function(req,res,next){
