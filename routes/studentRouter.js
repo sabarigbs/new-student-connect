@@ -12,6 +12,7 @@ router.get('/:studentId/attendance',authenticationMiddleWare.isAuthenticated, st
 
 // Routes that deal with onduty
 router.get('/:studentId/onduty',authenticationMiddleWare.isAuthenticated, studentController.viewAppliedOnDuty);
+router.post('/:studentId/onduty',authenticationMiddleWare.isAuthenticated,studentController.applyOnDuty);
 router.put('/:studentId/onduty/:ondutyId',authenticationMiddleWare.isAuthenticated,studentController.updateAppliedOnDuty);
 router.delete('/:studentId/onduty/:ondutyId',authenticationMiddleWare.isAuthenticated,studentController.deleteOnDutyRequest);
 module.exports = router;
