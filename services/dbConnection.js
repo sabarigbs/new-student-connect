@@ -1,11 +1,11 @@
 var mysql = require('mysql');
-
+var config = require('../config/dbConfig').CLOUD;
 
 var connection = mysql.createConnection({
-    host:"db4free.net",
-    user:"sabari",
-    password:"sabari.b",
-    database:"student_connect",
+    host: config.HOST,
+    user: config.USER,
+    password: config.PASSWORD,
+    database: config.DATABASE,
     timezone:+0530
 });
 
