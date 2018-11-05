@@ -3,8 +3,11 @@ var statusCodes = require('../constants/httpStatusCodes');
 
 module.exports = {
     isAuthenticated : function(req,res,next){
-        if(req.isAuthenticated())
+        if(req.isAuthenticated()){
             next()
-        response.sendErrorResponse(res,statusCodes.UNAUTHORIZED);
+        }
+        else{
+            response.sendErrorResponse(res,statusCodes.UNAUTHORIZED);
+        }
     }
 }
