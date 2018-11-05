@@ -6,8 +6,11 @@ var logger = require('morgan');
 var cors = require('cors');
 var bodyParser = require('body-parser');
 var passport = require('passport');
+var session = require('express-session');
 
-var authRouter = require('./routes/authRouter');
+require('./config/passport')(passport);
+
+var authRouter = require('./routes/authRouter')(passport);
 var studentRouter = require('./routes/studentRouter');
 var facultyRouter = require('./routes/facultyRouter');
 
@@ -20,6 +23,11 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+}))
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
