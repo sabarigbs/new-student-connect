@@ -13,6 +13,7 @@ require('./config/passport')(passport);
 var authRouter = require('./routes/authRouter')(passport);
 var studentRouter = require('./routes/studentRouter');
 var facultyRouter = require('./routes/facultyRouter');
+var userRouter = require('./routes/userRouter');
 
 var app = express();
 
@@ -32,9 +33,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(cors());
+app.use(cors({credentials: true, origin: true}));
 
 app.use('/', authRouter);
+app.use('/user',userRouter);
 app.use('/student', studentRouter);
 app.use('/faculty', facultyRouter);
 
