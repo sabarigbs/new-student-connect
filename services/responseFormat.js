@@ -3,8 +3,9 @@ var statusCodes = require('../constants/httpStatusCodes');
 var response = {
 
 
-    sendSuccessResponse : function(res,startusCode,message){
-        res.status(startusCode).json(message);
+    sendSuccessResponse : function(res,statusCode,message){
+        res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3001');
+        res.status(statusCode).json(message);
     },
 
     sendErrorResponse : function(res,statusCode){
