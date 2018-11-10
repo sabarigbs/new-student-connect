@@ -3,7 +3,6 @@ var db = require('../services/dbConnection');
 
 module.exports = function(passport) {
   passport.serializeUser(function(user, done) {
-    console.log("id", user);
     if(user['role'] === 'student'){
       keyToUse = 'student_id';
     }else{
@@ -49,7 +48,6 @@ module.exports = function(passport) {
 
       console.log(username,password,req.body.role);
       db.query("SELECT * FROM ?? WHERE ?? = ?",[tableName,columnName,username],function(err,data,fields){
-        console.log("Came here");
         if(err){
           return done(err);
         }
