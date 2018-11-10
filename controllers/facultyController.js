@@ -32,11 +32,15 @@ var facultyController = {
 
     // This function inserts the marks of student attending a particular faculty's subject
     insertMarksBySubject : function(req,res,next){
-
-        db.query(`INSERT INTO marks(occurrence_id,enrollment_id,teaches_id,marks,remarks) SELECT '18ODD1',enrollment_id,1,45,'' FROM enrollments WHERE student_id = ? AND course_id = ?`,['15CSR174','14GET71'],function(err,data,fields){
+        var data = [
+            ['18ODD2',5,76,'15CSR174','14CST71'],
+            ['18ODD2',5,84,'15CSR169','14CST71']
+        ];
+        db.query(`INSERT INTO marks(occurrence_id,enrollment_id,teaches_id,marks,remarks) SELECT ?,enrollment_id,?,?,'' FROM enrollments WHERE student_id = ? AND course_id = ?`,[data],function(err,data,fields){
             if(err)
                 console.log(err);
             console.log(data);
+            res.send("Scuccess");
         });
 
     },
@@ -82,7 +86,7 @@ var facultyController = {
     
     // This function will retrieve attendance of students attending a faculty's lecture
     viewSubjectwiseAttendance : function(req,res,next){
-        db.query('SELECT * FROM `student_attendance` WHERE `course_id` = ? and `date`=?',[courseId,date],function(err,data,fields){
+        db.query('SELECT * FROM `student_attendance` WHERE `course_id` = ? and `date` = ?',[courseId,date],function(err,data,fields){
             if(err)
                 response.sendErrorResponse(res,statusCodes.INTERNAL_SERVER_ERROR);
             else if(data.length !== 0){
@@ -146,7 +150,7 @@ var facultyController = {
                 response.sendErrorResponse(res,statusCodes.NOT_FOUND);
             }
         });
-    },
+    }
 
    };
 
