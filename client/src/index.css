@@ -1,0 +1,74 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.loginComponentWrapper {
+  box-shadow: 0px 0px 15px 5px lightgray;
+  border-radius: 5px;
+  padding: 3vh;
+  width: 30%;
+  margin: auto;
+  margin-top: 20vh;
+}
+
+.loginComponentWrapper h5 {
+  padding-bottom: 2vh;
+}
+
+.loginComponentWrapper .btn {
+  display: block;
+  margin: auto;
+}
+
+.sidebar {
+  width: 20%;
+  float: left;
+  margin: 2vh;
+  height: 100%;
+  padding: 3vh;
+  box-shadow: 0px 0px 15px 5px lightgray;
+  border-radius: 5px;
+}
+
+.mainContent {
+  width: 75%;
+  float: left;
+  margin: 2vh;
+  padding: 3vh;
+  
+}
+
+@media only screen and (max-width: 772px) {
+  .loginComponentWrapper {
+    padding: 3vh;
+    width: 60%;
+    height: auto;
+  }
+
+  .mainContent {
+    width: 100%;
+    margin: 2vh;
+    padding: 3vh;
+    box-shadow: none;
+  }
+}
+
+@media only screen and (max-width: 601px) {
+  .loginComponentWrapper {
+    padding: 3vh;
+    width: auto;
+    height: auto;
+    box-shadow: none;
+  }
+
+  .mainContent {
+    width:100%;
+    margin: 2vh;
+    padding: 3vh;
+    box-shadow: none;
+    
+  }
+}
+

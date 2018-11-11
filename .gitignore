@@ -1,5 +1,4 @@
 node_modules
-client
 services/fileParser.js
 marks.xlsx
 marks.csv
