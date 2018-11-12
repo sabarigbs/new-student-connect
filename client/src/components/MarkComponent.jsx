@@ -10,7 +10,7 @@ class MarkComponent extends Component {
     super(props);
 
     this.state = {
-      rollno: "15CSR174",
+      rollno: JSON.parse(localStorage.getItem("user")).userId,
       marks:{
         cat1:[],
         cat2:[],
@@ -27,7 +27,12 @@ class MarkComponent extends Component {
       .catch(err => err)
       .then(res => {
         let marks = {...this.state.marks}
-        marks.cat1 = res.marks;
+        if(catName === "18ODD1")
+          marks.cat1 = res.marks;
+        if(catName === "18ODD2")
+          marks.cat2 = res.marks;
+        if(catName === "18ODD3")
+          marks.cat3 = res.marks;
         this.setState({marks});
         console.log(this.state.marks);
         
@@ -37,8 +42,8 @@ class MarkComponent extends Component {
   componentDidMount() {
     M.Collapsible.init($(".collapsible"));
     this.fetchMarks("18ODD1");
-    this.fetchMarks("18ODD1");
-    this.fetchMarks("18ODD1");
+    this.fetchMarks("18ODD2");
+    this.fetchMarks("18ODD3");
   }
 
   render() {
