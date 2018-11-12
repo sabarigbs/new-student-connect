@@ -34,7 +34,7 @@ var studentController = {
     // This function updates remarks for a mark
     updateRemarks : function(req,res,next){
         
-        db.query(`UPDATE marks SET remarks = ? WHERE mark_id= ? WHERE onduty_id = ? `,[req.body.remarks,req.params.markId],function(err,data,fields){
+        db.query(`UPDATE marks SET remarks = ? WHERE mark_id= ?`,[req.body.remarks,req.params.markId],function(err,data,fields){
             if(err)
                response.sendErrorResponse(res,statusCodes.INTERNAL_SERVER_ERROR);
             else if(data.affectedRows === 1){
