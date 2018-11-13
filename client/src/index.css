@@ -13,6 +13,10 @@ body {
   margin-top: 20vh;
 }
 
+#alert{
+  margin: auto;
+}
+
 .loginComponentWrapper h5 {
   padding-bottom: 2vh;
 }

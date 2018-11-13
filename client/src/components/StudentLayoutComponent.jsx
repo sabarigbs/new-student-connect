@@ -8,13 +8,14 @@ class StudentLayoutComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      userId:JSON.parse(localStorage.getItem("user")).userId,
       userInfo: {}
     };
   }
 
   getUserInfo = () => {
-    var userId = "15CSR174";
-    makeNetworkCall(`user/student/${userId}`)
+    
+    makeNetworkCall(`user/student/${this.state.userId}`)
       .then(res => res.json())
       .catch(err => console.log(err))
       .then(res => {

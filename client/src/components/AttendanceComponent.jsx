@@ -12,12 +12,13 @@ class AttendanceComponent extends Component {
     this.getAttendance = this.getAttendance.bind(this);
     this.preprocessAttendance = this.preprocessAttendance.bind(this);
     this.state = {
+      userId: JSON.parse(localStorage.getItem("user")).userId,
       events: []
     };
   }
 
   getAttendance() {
-    makeNetworkCall(`student/15CSR174/attendance`)
+    makeNetworkCall(`student/${this.state.userId}/attendance`)
       .then(res => res.json())
       .catch(err => console.log(err))
       .then(res => this.preprocessAttendance(res.data));
@@ -27,42 +28,62 @@ class AttendanceComponent extends Component {
     this.getAttendance();
   }
 
-  preprocessAttendance(data){
-
+  preprocessAttendance(data) {
     var events = [];
-    
+
     data.forEach(day => {
-        
-        var morningFlag=false,eveningFlag=false;
-        if(day.period1 === "ABSENT" || day.period2 === "ABSENT" || day.period3 === "ABSENT" || day.period4 === "ABSENT" ){  
-          morningFlag = true;
-        }
-        if(day.period5 === "ABSENT" || day.period6 === "ABSENT" || day.period7 === "ABSENT"){
-          eveningFlag = true;
-        }
+      var morningFlag = false,
+        eveningFlag = false;
+      if (
+        day.period1 === "ABSENT" ||
+        day.period2 === "ABSENT" ||
+        day.period3 === "ABSENT" ||
+        day.period4 === "ABSENT"
+      ) {
+        morningFlag = true;
+      }
+      if (
+        day.period5 === "ABSENT" ||
+        day.period6 === "ABSENT" ||
+        day.period7 === "ABSENT"
+      ) {
+        eveningFlag = true;
+      }
 
-        if(morningFlag || eveningFlag){
-            let object = {
-                "start":day.date,
-                "end":day.date,
-                "title":"Absent"
-            }
-            events.push(object);
-        }
-        else{
-            let object = {
-                "start":day.date,
-                "end":day.date,
-                "title":"Present"
-            }
-            events.push(object);
-        }
-
-        
+      if (morningFlag === true && eveningFlag === true) {
+        let object = {
+          start: day.date,
+          end: day.date,
+          title: "Absent"
+        };
+        events.push(object);
+      } else if (morningFlag === true && eveningFlag !== true) {
+        let object = {
+          start: day.date,
+          end: day.date,
+          title: "Half Day"
+        };
+        events.push(object);
+      }else if (morningFlag !== true && eveningFlag === true) {
+        let object = {
+          start: day.date,
+          end: day.date,
+          title: "Half Day"
+        };
+        events.push(object);
+      }
+       else {
+        let object = {
+          start: day.date,
+          end: day.date,
+          title: "Present"
+        };
+        events.push(object);
+      }
     });
 
-    this.setState({events});
-}
+    this.setState({ events });
+  }
 
   render() {
     return (

@@ -8,10 +8,11 @@ var facultyController = {
     getMarksBySubject : function(req,res,next){
       
         db.query(`SELECT 
-        student_id,course_name,marks,remarks 
+        student_id,student_name,course_name,marks,remarks 
         FROM 
         marks NATURAL JOIN enrollments 
-        NATURAL JOIN courses 
+        NATURAL JOIN courses
+        NATURAL JOIN students 
         WHERE teaches_id = (SELECT teaches_id FROM teaches WHERE faculty_id = ? AND course_id = ? ) AND occurrence_id = ? `,[req.params.facultyId,req.query.course_id,req.params.occurrenceId],function(err,data,fields){
             if(err)
                 response.sendErrorResponse(res,statusCodes.INTERNAL_SERVER_ERROR);
@@ -30,12 +31,25 @@ var facultyController = {
 
     },
 
+    getCoursesByFacultyId : function(req,res,next){
+        db.query(`SELECT course_id,course_name FROM teaches NATURAL JOIN courses WHERE faculty_id = ?`,[req.params.facultyId],function(err,data,fields){
+            if(err)
+                response.sendErrorResponse(res,statusCodes.INTERNAL_SERVER_ERROR);
+            else if(data.length !== 0){
+                message={
+                    'success':true,
+                    data
+                };
+                response.sendSuccessResponse(res,statusCodes.OK,message);
+            }else{
+                response.sendErrorResponse(res,statusCodes.NOT_FOUND);
+            }
+        });
+    },
+
     // This function inserts the marks of student attending a particular faculty's subject
     insertMarksBySubject : function(req,res,next){
-        var data = [
-            ['18ODD2',5,76,'15CSR174','14CST71'],
-            ['18ODD2',5,84,'15CSR169','14CST71']
-        ];
+        
         db.query(`INSERT INTO marks(occurrence_id,enrollment_id,teaches_id,marks,remarks) SELECT ?,enrollment_id,?,?,'' FROM enrollments WHERE student_id = ? AND course_id = ?`,[data],function(err,data,fields){
             if(err)
                 console.log(err);
@@ -86,7 +100,7 @@ var facultyController = {
     
     // This function will retrieve attendance of students attending a faculty's lecture
     viewSubjectwiseAttendance : function(req,res,next){
-        db.query('SELECT * FROM `student_attendance` WHERE `course_id` = ? and `date` = ?',[courseId,date],function(err,data,fields){
+        db.query('SELECT student_id,student_name FROM `student_attendance` NATURAL JOIN students WHERE `course_id` = ? and `date` = ?',[req.params.courseId,req.query.date],function(err,data,fields){
             if(err)
                 response.sendErrorResponse(res,statusCodes.INTERNAL_SERVER_ERROR);
             else if(data.length !== 0){

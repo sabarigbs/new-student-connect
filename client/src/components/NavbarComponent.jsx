@@ -8,6 +8,9 @@ import {withRouter} from "react-router-dom";
 class NavbarComponent extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      role: JSON.parse(localStorage.getItem("user")).role
+    };
     this.logout = this.logout.bind(this);
   }
 
@@ -22,6 +25,7 @@ class NavbarComponent extends Component {
       .catch(err => console.log(err))
       .then(res => {
         if (res.success) {
+          window.localStorage.removeItem("user");
           this.props.history.push("/");
         }
       });
@@ -34,7 +38,7 @@ class NavbarComponent extends Component {
           <nav>
             <div className="nav-wrapper">
               <Link to="/" className="brand-logo">
-                Logo
+                KEC
               </Link>
               <Link
                 to="#"
@@ -45,13 +49,14 @@ class NavbarComponent extends Component {
               </Link>
               <ul id="nav-mobile" className="right hide-on-med-and-down">
                 <li>
-                  <NavLink to="/student/marks">Marks</NavLink>
+                  <NavLink to={{pathname:`/${this.state.role}/marks`}}>Marks</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/student/attendance">Attendace</NavLink>
+                  <NavLink to={{pathname:`/${this.state.role}/attendance`}}>Attendace</NavLink>
                 </li>
                 <li>
-                  <NavLink to="/student/onduty">Onduty</NavLink>
+                  {/* <NavLink to="/student/onduty">Onduty</NavLink> */}
+                  <a className="dropdown-trigger" data-target="dropdown2">Onduty<i className="material-icons right">arrow_drop_down</i></a>
                 </li>
                 <li>
                   <a className="dropdown-trigger" data-target="dropdown1">
@@ -62,6 +67,14 @@ class NavbarComponent extends Component {
                       <a onClick={this.logout}>Logout</a>
                     </li>
                   </ul>
+                  <ul id="dropdown2" className="dropdown-content">
+                    <li>
+                      <Link to="/student/onduty/apply">Apply</Link>
+                      <Link to="/student/onduty/view">View</Link>
+                      <Link to="/student/onduty/edit">Edit</Link>
+                      <Link to="/student/onduty/delete">Delete</Link>
+                    </li>
+                  </ul>
                 </li>
               </ul>
             </div>
@@ -70,13 +83,13 @@ class NavbarComponent extends Component {
 
         <ul className="sidenav" id="mobile-demo">
           <li>
-            <Link to="/student/marks">Marks</Link>
+            <Link to={{pathname:`/${this.state.role}/marks`}}>Marks</Link>
           </li>
           <li>
-            <Link to="/student/attendance">Attendace</Link>
+            <Link to={{pathname:`/${this.state.role}/attendance`}}>Attendace</Link>
           </li>
           <li>
-            <Link to="/student/onduty">Onduty</Link>
+            <Link to={{pathname:`/${this.state.role}/onduty`}}>Onduty</Link>
           </li>
           <li>
             <a onClick={this.logout}>Logout</a>
